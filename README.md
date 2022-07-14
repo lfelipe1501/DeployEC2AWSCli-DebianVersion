@@ -8,14 +8,15 @@ This script can be used to deploy any EC2 Debian version instance in aws ec2 usi
 At the moment the script creates a t2.micro instance of the free layer and uses the Official Ubuntu AMI ID to install an up-to-date and working debian system.
 
 This script creates a standard security group with the basic rules for web access with the ports:
+* 80
+* 443
+* and a custom SSH port that the user sets for security.
 
-> 80
+It also creates a floating IP so that the machine is always connected to a Fixed IP.
 
-> 443
+All the resources assigned in this script are left with their own name that the script creates randomly.
 
-> and a custom SSH port that the user sets for security to avoid using the standard SSH port for security.
-
-It also creates a floating IP so that the machine is always connected to a Fixed IP
+> *This script does not ask for the region to deploy the instance, it assumes that you already have this configured in your aws-cli environment or if you are using cloudshell, that you are in the region where you want to deploy the new server.*
 
 ## How to use
 
