@@ -21,8 +21,9 @@ echo ""
 echo -e "==================================\n$OB EC2 AUTO DEPLOY$W \n=================================="
 echo ""
 
+echo ""
 echo "Please indicate the New Name for user..."
-read -p "$(echo -e "Full name of the new user that replaces ec2-user (e.g.$R felipe$W): \n> ")" newUSR
+read -p "$(echo -e "Full name of the new user that replaces ubuntu user (e.g.$R felipe$W): \n> ")" newUSR
 
 echo ""
 echo "Please indicate the HOSTNAME for a server..."
@@ -102,10 +103,10 @@ sleep 30
 
 aws ec2 associate-address --instance-id $EC2INST --allocation-id $ELIP > /dev/null 2>&1
 
-echo -e "$G>> All ready...$W the new SERVER is$B running$W\n"
+echo -e "$G>> All ready...$W the new SERVER is$B RUNNING$W\n"
 echo "You can enter to SSH using:"
+echo ""
 echo "ssh -p ${sshprt} -i ${newUSRIFN}.pem root@${getIP}"
 echo "or"
 echo "ssh -p ${sshprt} -i ${newUSRIFN}.pem ${newUSR}@${getIP}"
 echo ""
-
