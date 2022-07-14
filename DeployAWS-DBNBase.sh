@@ -32,7 +32,7 @@ read -p "$(echo -e "Enter the Instance type you wish to use otherwise leave this
 
 echo ""
 echo "Please indicate the Disk space..."
-echo "if you do NOT indicate the Disk space by default the script set 30GB space"
+echo "if you do NOT indicate the Disk space by default the script set 30GB space of the free tier"
 read -p "$(echo -e "Enter the Disk space you wish to use otherwise leave this field blank (e.g.$R 120$W): \n> ")" dskspa
 
 echo ""
