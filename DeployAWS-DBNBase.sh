@@ -21,8 +21,22 @@ echo ""
 echo -e "==================================\n$OB EC2 AUTO DEPLOY$W \n=================================="
 echo ""
 
+echo "Please indicate the AMI ID..."
+echo "if you do NOT indicate the AMI ID by default the script installs the official version of Ubuntu from AWS"
+read -p "$(echo -e "Enter the debian-based AMI ID you wish to use otherwise leave this field blank (e.g.$R ami-052efd3df9dad4825$W): \n> ")" amid
+
 echo ""
-echo "Please indicate the New Name for user..."
+echo "Please indicate the Instance type..."
+echo "if you do NOT indicate the INSTANCE TYPE by default the script installs the t2.micro instance of the free tier"
+read -p "$(echo -e "Enter the Instance type you wish to use otherwise leave this field blank (e.g.$R t2.micro$W): \n> ")" ectype
+
+echo ""
+echo "Please indicate the Disk space..."
+echo "if you do NOT indicate the Disk space by default the script set 30GB space"
+read -p "$(echo -e "Enter the Disk space you wish to use otherwise leave this field blank (e.g.$R 120$W): \n> ")" dskspa
+
+echo ""
+echo "Please indicate the New Name for system user..."
 read -p "$(echo -e "Full name of the new user that replaces ubuntu user (e.g.$R felipe$W): \n> ")" newUSR
 
 echo ""
@@ -76,6 +90,21 @@ echo ""
 echo -e "==================================\n$OB Deploy new Server...$W \n=================================="
 echo -e "$G>> Deploying...$W please wait.....\n"
 
+if [ -z "$amid" ]
+then
+	amid="ami-052efd3df9dad4825"
+fi
+
+if [ -z "$ectype" ]
+then
+	ectype="t2.micro"
+fi
+
+if [ -z "$dskspa" ]
+then
+	dskspa="30"
+fi
+
 aws ec2 create-security-group --group-name segr-nwServer-ec2-sg --description "Grupo de seguridad By FelipeScript" > /dev/null 2>&1
 
 aws ec2 authorize-security-group-ingress --group-name segr-nwServer-ec2-sg --ip-permissions IpProtocol=tcp,FromPort=$sshprt,ToPort=$sshprt,IpRanges='[{CidrIp=0.0.0.0/0,Description="Puerto Seguro SSH"}]' > /dev/null 2>&1 && aws ec2 authorize-security-group-ingress --group-name segr-nwServer-ec2-sg --ip-permissions IpProtocol=tcp,FromPort=80,ToPort=80,IpRanges='[{CidrIp=0.0.0.0/0,Description="Puerto Acceso http"}]' > /dev/null 2>&1 && aws ec2 authorize-security-group-ingress --group-name segr-nwServer-ec2-sg --ip-permissions IpProtocol=tcp,FromPort=443,ToPort=443,IpRanges='[{CidrIp=0.0.0.0/0,Description="Puerto Acceso https"}]' > /dev/null 2>&1
@@ -92,8 +121,9 @@ getIP=$(aws ec2 describe-addresses --allocation-id $ELIP | grep -oP '(?<="Public
 
 TagSET1="ResourceType=instance,Tags=[{Key=Name,Value="${nametgServer}"}]"
 TagSET2="ResourceType=volume,Tags=[{Key=Name,Value=D"${nametgServer}"}]"
+DskSET='[{"DeviceName":"/dev/sda1","Ebs":{"VolumeSize":'${dskspa}"}}]"
 
-aws ec2 run-instances --image-id ami-052efd3df9dad4825 --count 1 --instance-type t2.micro --key-name ${newUSRIFN} --security-groups segr-nwServer-ec2-sg --block-device-mapping "[ { \"DeviceName\": \"/dev/sda1\", \"Ebs\": { \"VolumeSize\": 30 } } ]" --tag-specifications ${TagSET1} ${TagSET2} --user-data file://deploy.txt > /dev/null 2>&1
+aws ec2 run-instances --image-id ${amid} --count 1 --instance-type ${ectype} --key-name ${newUSRIFN} --security-groups segr-nwServer-ec2-sg --block-device-mapping ${DskSET} --tag-specifications ${TagSET1} ${TagSET2} --user-data file://deploy.txt > /dev/null 2>&1
 
 TagNI1="Name=tag:Name,Values="${nametgServer}
 
@@ -104,9 +134,11 @@ sleep 30
 aws ec2 associate-address --instance-id $EC2INST --allocation-id $ELIP > /dev/null 2>&1
 
 echo -e "$G>> All ready...$W the new SERVER is$B RUNNING$W\n"
+echo -e "++++++++++++++++++++++++++++++\n$OB Normally the instance takes a few minutes to finish\n adjusting the data sent for updates and adjustments \n so it is recommended that you wait 1 \n to 2 minutes to start using your new server...$W \n++++++++++++++++++++++++++++++"
+echo ""
 echo "You can enter to SSH using:"
 echo ""
-echo "ssh -p ${sshprt} -i ${newUSRIFN}.pem root@${getIP}"
+echo -e "$OB>> ssh -p ${sshprt} -i ${newUSRIFN}.pem root@${getIP}$W"
 echo "or"
-echo "ssh -p ${sshprt} -i ${newUSRIFN}.pem ${newUSR}@${getIP}"
+echo -e "$OG>> ssh -p ${sshprt} -i ${newUSRIFN}.pem ${newUSR}@${getIP}$W"
 echo ""
