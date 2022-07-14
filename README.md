@@ -5,10 +5,18 @@ This repository contains a little `bash-script` to easily deploy any instance in
 ## Details
 
 This script can be used to deploy any EC2 Debian version instance in aws ec2 using aws-cli.
+At the moment the script creates a t2.micro instance of the free layer and uses the Official Ubuntu AMI ID to install an up-to-date and working debian system.
+
+This script creates a standard security group with the basic rules for web access with the ports:
+80
+443
+and a custom SSH port that the user sets for security to avoid using the standard SSH port for security.
+
+It also creates a floating IP so that the machine is always connected to a Fixed IP
 
 ## How to use
 
-Its use is very simple, you just need to go to the aws shell in your console or use aws-cli app in your linux favorite distro:
+Its use is very simple, you just need to go to the cloudshell in your aws console or configure and use aws-cli app on your favorite linux distro:
 
 ```bash
 wget -qN https://raw.githubusercontent.com/lfelipe1501/DeployEC2AWSCli-DebianVersion/main/DeployAWS-DBNBase.sh && chmod +x DeployAWS-DBNBase.sh && bash DeployAWS-DBNBase.sh
