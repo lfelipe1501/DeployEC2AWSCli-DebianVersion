@@ -9,9 +9,11 @@ At the moment the script creates a t2.micro instance of the free layer and uses 
 
 This script creates a standard security group with the basic rules for web access with the ports:
 
-80
-443
-and a custom SSH port that the user sets for security to avoid using the standard SSH port for security.
+> 80
+
+> 443
+
+> and a custom SSH port that the user sets for security to avoid using the standard SSH port for security.
 
 It also creates a floating IP so that the machine is always connected to a Fixed IP
 
