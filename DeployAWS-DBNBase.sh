@@ -13,6 +13,7 @@ B='\033[0;34m'
 R="\033[01;31m"
 G="\033[01;32m"
 OB="\033[44m"
+OR='\033[101m'
 OG='\033[42m'
 UY='\033[4;33m'
 UG='\033[4;32m'
@@ -22,34 +23,34 @@ echo -e "==================================\n$OB EC2 AUTO DEPLOY$W \n===========
 echo ""
 
 echo "Please indicate the AMI ID..."
-echo "if you do NOT indicate the AMI ID by default the script installs the official version of Ubuntu from AWS"
-read -p "$(echo -e "Enter the debian-based AMI ID you wish to use otherwise leave this field blank (e.g.$R ami-052efd3df9dad4825$W): \n> ")" amid
+echo -e "++++++++++++++++++++++++++++++\n$OR If you do NOT indicate the AMI ID\n by default the script installs \n the official version of Ubuntu from AWS$W \n++++++++++++++++++++++++++++++"
+read -p "$(echo -e "Enter the RHEL-based AMI ID you wish to use$UY\notherwise leave this field blank $W(e.g.$R ami-052efd3df9dad4825$W): \n> ")" amid
 
 echo ""
 echo "Please indicate the Instance type..."
-echo "if you do NOT indicate the INSTANCE TYPE by default the script installs the t2.micro instance of the free tier"
-read -p "$(echo -e "Enter the Instance type you wish to use otherwise leave this field blank (e.g.$R t2.micro$W): \n> ")" ectype
+echo -e "++++++++++++++++++++++++++++++\n$OR If you do NOT indicate the INSTANCE TYPE\n by default the script installs \n the t2.micro instance of the free tier$W \n++++++++++++++++++++++++++++++"
+read -p "$(echo -e "Enter the Instance type you wish to use$UY\notherwise leave this field blank $W(e.g.$R t2.micro$W): \n> ")" ectype
 
 echo ""
 echo "Please indicate the Disk space..."
-echo "if you do NOT indicate the Disk space by default the script set 30GB space of the free tier"
-read -p "$(echo -e "Enter the Disk space you wish to use otherwise leave this field blank (e.g.$R 120$W): \n> ")" dskspa
+echo -e "++++++++++++++++++++++++++++++\n$OR If you do NOT indicate the Disk space\n by default the script\n set 30GB space of the free tier$W \n++++++++++++++++++++++++++++++"
+read -p "$(echo -e "Enter the Disk space you wish to use$UY\notherwise leave this field blank $W(e.g.$R 120$W): \n> ")" dskspa
 
 echo ""
-echo "Please indicate the New Name for system user..."
-read -p "$(echo -e "Full name of the new user that replaces ubuntu user (e.g.$R felipe$W): \n> ")" newUSR
+echo "Please indicate the New Name for user..."
+read -p "$(echo -e "Full name of the new user that replaces Ubuntu\n(e.g.$R felipe$W): \n> ")" newUSR
 
 echo ""
 echo "Please indicate the HOSTNAME for a server..."
-read -p "$(echo -e "Full Hostname (e.g.$R server.lfsystems.io$W): \n> ")" hostname
+read -p "$(echo -e "Full Hostname\n(e.g.$R server.lfsystems.io$W): \n> ")" hostname
 
 echo ""
 echo "Please indicate the SSH PORT for a server..."
-read -p "$(echo -e "New port for SSH to increase security (e.g.$R 2211$W): \n> ")" sshprt
+read -p "$(echo -e "New port for SSH to increase security\n(e.g.$R 2211$W): \n> ")" sshprt
 
 echo ""
 echo "Please indicate the PEM KEY NAME for a server..."
-read -p "$(echo -e "Specify the name of the key for the SSH connection (e.g.$R llave22$W): \n> ")" newUSRIFN
+read -p "$(echo -e "Specify the name of the key for the SSH connection\n(e.g.$R llave22$W): \n> ")" newUSRIFN
 
 rnumber=$((RANDOM%995+1))
 nametgServer=ServerUBNL"$rnumber"
