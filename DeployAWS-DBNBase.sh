@@ -149,7 +149,7 @@ TagNI1="Name=tag:Name,Values="${nametgServer}
 
 EC2INST=$(aws ec2 describe-instances --filters $TagNI1  | grep -oP '(?<="InstanceId": ")[^"]*')
 
-sleep 45
+sleep 27
 
 aws ec2 associate-address --instance-id $EC2INST --allocation-id $ELIP > /dev/null 2>&1
 
