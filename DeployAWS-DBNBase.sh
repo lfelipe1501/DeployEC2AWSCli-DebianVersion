@@ -116,7 +116,7 @@ chmod 600 $newUSRIFN.pem
 
 ELIP=$(aws ec2 allocate-address | grep -oP '(?<="AllocationId": ")[^"]*')
 
-aws ec2 create-tags --resources $ELIP --tags $TagIPSET1
+aws ec2 create-tags --resources $ELIP --tags Key=Name,Value=IP-ELT${nametgServer}
 
 getIP=$(aws ec2 describe-addresses --allocation-id $ELIP | grep -oP '(?<="PublicIp": ")[^"]*')
 
