@@ -17,23 +17,42 @@ OR='\033[101m'
 OG='\033[42m'
 UY='\033[4;33m'
 UG='\033[4;32m'
+BU='\033[1;34;4m'
+GU='\033[1;32;4m'
 
 echo ""
-echo -e "==================================\n$OB EC2 AUTO DEPLOY$W \n=================================="
-echo ""
+echo -e "==================================\n$OB EC2 AUTO DEPLOY$W \n==================================\n"
 
 echo "Please indicate the AMI ID..."
-echo -e "++++++++++++++++++++++++++++++\n$OR If you do NOT indicate the AMI ID\n by default the script installs \n the official version of Ubuntu from AWS$W \n++++++++++++++++++++++++++++++"
+
+echo -e "++++++++++++++++++++++++++++++"
+echo -e "$OR If you do NOT indicate the AMI ID$W"
+echo -e "$OR by default the script installs$W"
+echo -e "$OR the official version of UBUNTU from AWS$W"
+echo -e "$W++++++++++++++++++++++++++++++"
+
 read -p "$(echo -e "Enter the Debian-based AMI ID you wish to use$UY\notherwise leave this field blank $W(e.g.$R ami-052efd3df9dad4825$W): \n> ")" amid
 
 echo ""
 echo "Please indicate the Instance type..."
-echo -e "++++++++++++++++++++++++++++++\n$OR If you do NOT indicate the INSTANCE TYPE\n by default the script installs \n the t2.micro instance of the free tier$W \n++++++++++++++++++++++++++++++"
+
+echo -e "++++++++++++++++++++++++++++++"
+echo -e "$OR If you do NOT indicate the INSTANCE TYPE$W"
+echo -e "$OR by default the script installs$W"
+echo -e "$OR the t2.micro instance of the free tier$W"
+echo -e "$W++++++++++++++++++++++++++++++"
+
 read -p "$(echo -e "Enter the Instance type you wish to use$UY\notherwise leave this field blank $W(e.g.$R t2.micro$W): \n> ")" ectype
 
 echo ""
 echo "Please indicate the Disk space..."
-echo -e "++++++++++++++++++++++++++++++\n$OR If you do NOT indicate the Disk space\n by default the script\n set 30GB space of the free tier$W \n++++++++++++++++++++++++++++++"
+
+echo -e "++++++++++++++++++++++++++++++"
+echo -e "$OR If you do NOT indicate the DISK SPACE$W"
+echo -e "$OR by default the script autos$W"
+echo -e "$OR set 30GB space of the free tier$W"
+echo -e "$W++++++++++++++++++++++++++++++"
+
 read -p "$(echo -e "Enter the Disk space you wish to use$UY\notherwise leave this field blank $W(e.g.$R 120$W): \n> ")" dskspa
 
 echo ""
@@ -135,11 +154,18 @@ sleep 45
 aws ec2 associate-address --instance-id $EC2INST --allocation-id $ELIP > /dev/null 2>&1
 
 echo -e "$G>> All ready...$W the new SERVER is$B RUNNING$W\n"
-echo -e "++++++++++++++++++++++++++++++\n$OB Normally the instance takes a few minutes to finish\n adjusting the data sent for updates and adjustments \n so it is recommended that you wait 1 \n to 2 minutes to start using your new server...$W\n++++++++++++++++++++++++++++++"
+echo -e "++++++++++++++++++++++++++++++"
+echo -e "$OB Normally the instance takes a few minutes to finish$W"
+echo -e "$OB adjusting the data sent for updates and adjustments$W"
+echo -e "$OB so it is recommended that you wait 1 to 2 minutes...$W"
+echo -e "$OB wait these few minutes to start using your new server$W"
+echo -e "$W++++++++++++++++++++++++++++++"
 echo ""
-echo "You can enter to SSH using:"
+echo "The details of your new server is:"
 echo ""
-echo -e "$OB>> ssh -p ${sshprt} -i ${newUSRIFN}.pem root@${getIP} $W"
+echo "## Root Access:"
+echo -e ">> "$BU"ssh -p ${sshprt} -i ${newUSRIFN}.pem root@${getIP}$W"
 echo "or"
-echo -e "$OG>> ssh -p ${sshprt} -i ${newUSRIFN}.pem ${newUSR}@${getIP} $W"
+echo "## Normal User Access:"
+echo -e ">> "$GU"ssh -p ${sshprt} -i ${newUSRIFN}.pem ${newUSR}@${getIP}$W"
 echo ""
