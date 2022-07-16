@@ -114,9 +114,9 @@ aws ec2 create-key-pair --key-name $newUSRIFN --query 'KeyMaterial' --output tex
 
 chmod 600 $newUSRIFN.pem
 
-TagIPSET1="ResourceType=elastic-ip,Tags=[{Key=Name,Value=IP-ELT"${nametgServer}"}]"
+ELIP=$(aws ec2 allocate-address | grep -oP '(?<="AllocationId": ")[^"]*')
 
-ELIP=$(aws ec2 allocate-address --tag-specifications $TagIPSET1 | grep -oP '(?<="AllocationId": ")[^"]*')
+aws ec2 create-tags --resources $ELIP --tags $TagIPSET1
 
 getIP=$(aws ec2 describe-addresses --allocation-id $ELIP | grep -oP '(?<="PublicIp": ")[^"]*')
 
@@ -130,16 +130,16 @@ TagNI1="Name=tag:Name,Values="${nametgServer}
 
 EC2INST=$(aws ec2 describe-instances --filters $TagNI1  | grep -oP '(?<="InstanceId": ")[^"]*')
 
-sleep 30
+sleep 45
 
 aws ec2 associate-address --instance-id $EC2INST --allocation-id $ELIP > /dev/null 2>&1
 
 echo -e "$G>> All ready...$W the new SERVER is$B RUNNING$W\n"
-echo -e "++++++++++++++++++++++++++++++\n$OB Normally the instance takes a few minutes to finish\n adjusting the data sent for updates and adjustments \n so it is recommended that you wait 1 \n to 2 minutes to start using your new server...$W \n++++++++++++++++++++++++++++++"
+echo -e "++++++++++++++++++++++++++++++\n$OB Normally the instance takes a few minutes to finish\n adjusting the data sent for updates and adjustments \n so it is recommended that you wait 1 \n to 2 minutes to start using your new server...$W\n++++++++++++++++++++++++++++++"
 echo ""
 echo "You can enter to SSH using:"
 echo ""
-echo -e "$OB>> ssh -p ${sshprt} -i ${newUSRIFN}.pem root@${getIP}$W"
+echo -e "$OB>> ssh -p ${sshprt} -i ${newUSRIFN}.pem root@${getIP} $W"
 echo "or"
-echo -e "$OG>> ssh -p ${sshprt} -i ${newUSRIFN}.pem ${newUSR}@${getIP}$W"
+echo -e "$OG>> ssh -p ${sshprt} -i ${newUSRIFN}.pem ${newUSR}@${getIP} $W"
 echo ""
