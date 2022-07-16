@@ -24,7 +24,7 @@ echo ""
 
 echo "Please indicate the AMI ID..."
 echo -e "++++++++++++++++++++++++++++++\n$OR If you do NOT indicate the AMI ID\n by default the script installs \n the official version of Ubuntu from AWS$W \n++++++++++++++++++++++++++++++"
-read -p "$(echo -e "Enter the RHEL-based AMI ID you wish to use$UY\notherwise leave this field blank $W(e.g.$R ami-052efd3df9dad4825$W): \n> ")" amid
+read -p "$(echo -e "Enter the Debian-based AMI ID you wish to use$UY\notherwise leave this field blank $W(e.g.$R ami-052efd3df9dad4825$W): \n> ")" amid
 
 echo ""
 echo "Please indicate the Instance type..."
@@ -38,7 +38,7 @@ read -p "$(echo -e "Enter the Disk space you wish to use$UY\notherwise leave thi
 
 echo ""
 echo "Please indicate the New Name for user..."
-read -p "$(echo -e "Full name of the new user that replaces Ubuntu\n(e.g.$R felipe$W): \n> ")" newUSR
+read -p "$(echo -e "Full name of the new user that replaces ubuntu\n(e.g.$R felipe$W): \n> ")" newUSR
 
 echo ""
 echo "Please indicate the HOSTNAME for a server..."
