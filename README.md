@@ -32,7 +32,7 @@ wget -qN https://raw.githubusercontent.com/lfelipe1501/DeployEC2AWSCli-DebianVer
 
 a small example of how it works :sunglasses:
 
-![Scriptinaction](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/AWSCliUBNT/awscliubnt.gif)
+https://user-images.githubusercontent.com/7816653/179444412-a1feba30-ac48-40fb-a17c-06b02244e77f.mp4
 
 ### that's it
 
