@@ -12,6 +12,10 @@ This script creates a standard security group with the basic rules for web acces
 * 443
 * and a custom SSH port that the user sets for security.
 
+This script creates a pem key in the folder or place where you are located in your terminal:
+> You can copy the file elsewhere to keep it in a safe place.
+![PEMFile](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/AWSCliUBNT/AWSCliUBNT.png)
+
 It also creates a floating IP so that the machine is always connected to a Fixed IP.
 
 All the resources assigned in this script are left with their own name that the script creates randomly.
@@ -27,7 +31,8 @@ wget -qN https://raw.githubusercontent.com/lfelipe1501/DeployEC2AWSCli-DebianVer
 ```
 
 a small example of how it works :sunglasses:
-![CleanWP](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/cleanwp123.gif)
+
+![Scriptinaction](https://raw.githubusercontent.com/lfelipe1501/lfelipe-projects/master/AWSCliUBNT/awscliubnt.gif)
 
 ### that's it
 
