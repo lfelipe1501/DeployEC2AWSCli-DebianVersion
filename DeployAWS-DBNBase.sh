@@ -31,7 +31,7 @@ echo -e "$OR by default the script installs$W"
 echo -e "$OR the official version of UBUNTU from AWS$W"
 echo -e "$W++++++++++++++++++++++++++++++"
 
-read -p "$(echo -e "Enter the Debian-based AMI ID you wish to use$UY\notherwise leave this field blank $W(e.g.$R ami-024e6efaf93d85776$W): \n> ")" amid
+read -p "$(echo -e "Enter the Debian-based AMI ID you wish to use$UY\notherwise leave this field blank $W(e.g.$R ami-00983e8a26e4c9bd9$W): \n> ")" amid
 
 echo ""
 echo "Please indicate the Instance type..."
@@ -112,7 +112,7 @@ echo -e "$G>> Deploying...$W please wait.....\n"
 
 if [ -z "$amid" ]
 then
-	amid="ami-024e6efaf93d85776"
+	amid="ami-00983e8a26e4c9bd9"
 fi
 
 if [ -z "$ectype" ]
