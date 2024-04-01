@@ -20,6 +20,9 @@ UG='\033[4;32m'
 BU='\033[1;34;4m'
 GU='\033[1;32;4m'
 
+## Obtener ID AMI Ubuntu Latest
+UBN_AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=ubuntu*22.04-amd64-server-20240301" --query "sort_by(Images, &CreationDate)[-1:].[ImageId]" --output text)
+
 echo ""
 echo -e "==================================\n$OB EC2 AUTO DEPLOY$W \n==================================\n"
 
@@ -31,7 +34,7 @@ echo -e "$OR by default the script installs$W"
 echo -e "$OR the official version of UBUNTU from AWS$W"
 echo -e "$W++++++++++++++++++++++++++++++"
 
-read -p "$(echo -e "Enter the Debian-based AMI ID you wish to use$UY\notherwise leave this field blank $W(e.g.$R ami-06873c81b882339ac$W): \n> ")" amid
+read -p "$(echo -e "Enter the Debian-based AMI ID you wish to use$UY\notherwise leave this field blank $W(e.g.$R $UBN_AMI_ID$W): \n> ")" amid
 
 echo ""
 echo "Please indicate the Instance type..."
@@ -112,7 +115,7 @@ echo -e "$G>> Deploying...$W please wait.....\n"
 
 if [ -z "$amid" ]
 then
-	amid="ami-06873c81b882339ac"
+	amid="$UBN_AMI_ID"
 fi
 
 if [ -z "$ectype" ]
